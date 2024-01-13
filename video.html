@@ -4,18 +4,51 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Video</title>
+        <title>Document</title>
     </head>
 
     <body>
-
-        <video src="" id="cameraFeed" autoplay></video>
+        <style>
+            .groupLI {
+                background-color: aqua;
+            }
+        </style>
+        <ul>
+            <li class="groupLI">
+                <a data-bs-toggle="pill" href="#chatbox1">
+                    <div class="d-flex align-items-center">
+                        <div class="avatar me-2">
+                            <img src="/website/user/business/image-1700384023707.png" alt="chatuserimage"
+                                class="avatar-50 ">
+                        </div>
+                        <div class="chat-sidebar-name">
+                            <h6 class="mb-0">Yuli Guzman</h6>
+                            <span>Minim vitae ut qui r</span>
+                        </div>
+                        <div class="chat-meta float-right text-center mt-2 me-1">
+                            <!-- <div
+                            class="chat-msg-counter bg-primary text-white">
+                            20</div>
+                        <span class="text-nowrap">05 min</span> -->
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
         <script>
-            const cameraFeed = document.getElementById('cameraFeed');
-            navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-                cameraFeed.srcObject = stream
-            }).catch(error => {
-                console.error(`Error accessing camera: `, error)
+            $().ready(function () {
+                console.log('boom');
+                $('.groupLI').click(function () {
+                    console.log('boom goes here');
+                    let divs = $(this).find('.chat-sidebar-name')
+                    let name = divs.children('h6').text();
+                    console.log({ name });
+
+                    let image = $(this).find('img').attr('src');
+                    console.log({ image });
+                })
             })
         </script>
     </body>
