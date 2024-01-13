@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Date and Time Selection</title>
+    </head>
+
+    <body>
+
+        <form action="">
+
+            <label for="datetimeInput">Select Date and Time:</label>
+            <input type="datetime-local" id="datetimeInput" name="datetimeInput">
+            <button type="submit">submit</button>
+        </form>
+        <script>
+            const datetimeInput = document.getElementById("datetimeInput");
+            // Get the current date and time in the required format (YYYY-MM-DDThh:mm)
+            const currentDate = new Date();
+            // Set the min attribute of the datetime input to the current date and time
+            datetimeInput.min = currentDate;
+            // Add an event listener to the input to handle changes
+            datetimeInput.addEventListener("input", function () {
+                
+                const selectedDateTime = new Date(this.value).getTime();
+                console.log({ selectedDateTime });
+                const currentDateTime = new Date(currentDate).getTime();
+                console.log({ currentDateTime });
+                // Check if the selected date and time is before the current date and time
+                if (selectedDateTime < currentDateTime) {
+                    // Replace the selected time with the current time
+                    this.value = currentDate;
+                }
+            });
+        </script>
+
+    </body>
+
+</html>

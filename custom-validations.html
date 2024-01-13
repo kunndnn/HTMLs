@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>custom - validations</title>
+    </head>
+
+    <body>
+
+    </body>
+    <script>
+        $(".next-step").on("click", function (e) {
+            const title = $(input[name = 'title']);
+            const digestion_time = $(select[name = 'digestion_time']);
+            const prepration_time = $(input[name = 'prepration_time']);
+            const cooking_time = $(input[name = 'cooking_time']);
+            const level = $(input[name = 'level']);
+            const serves = $(input[name = 'serves']);
+            // const description = $(textarea[name='description']);
+            const image = $(input[name = 'image']);
+            $("span.error").remove();
+            function appendError(element, message) {
+                e.preventDefault();
+                element.after(<span class="error">${message}</span>);
+            }
+            !title.val() ? appendError(title, 'Please enter title') : '';
+            if (digestion_time.val() == '') {
+                e.preventDefault();
+                digestion_time.next().after(<span class="error">Please enter digestion time</span>);
+            }
+            !prepration_time.val() ? appendError(prepration_time, 'Please enter preparation time') : '';
+
+            !cooking_time.val() ? appendError(cooking_time, 'Please enter cooking time') : '';
+
+            !level.val() ? appendError(level, 'Please  enter level') : '';
+            !serves.val() ? appendError(serves, 'Please  enter serves') : '';
+            // !description.val() ? appendError(description, 'Please  enter Description') : '';
+            !image[0].files.length ? appendError(image, 'Please  enter image') : '';
+            if ($("span.error").length === 0) {
+                goToNextTab();
+                updateActiveStep();
+            }
+        });
+    </script>
+
+</html>
