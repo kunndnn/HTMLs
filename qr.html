@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR</title>
+        <style>
+            /* Add a CSS rule for the fade-in animation */
+            #qrcode img {
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+
+            #qrcode img.loaded {
+                opacity: 1;
+            }
+        </style>
+    </head>
+
+    <body>
+        <label for="urlInput">Enter your URL here</label>
+        <input type="text" id="urlInput">
+        <button>Generate QR</button>
+        <div id="qrcode"></div>
+
+        <script>
+            const input = document.getElementById('urlInput');
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    document.getElementsByTagName("button")[0].click();
+                    // Add your code to handle the Enter key press here
+                    generateQR();
+                }
+            });
+
+            function generateQR() {
+                const input = document.getElementById('urlInput');
+                const text = input.value;
+                const div = document.getElementById('qrcode');
+                div.innerHTML = "";
+
+                // Create a new QR code element
+                const qrCode = document.createElement('img');
+
+                // Set the source to the generated QR code using the input value
+                qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=128x128`;
+
+                // Set width and height (optional)
+                qrCode.width = 128;
+                qrCode.height = 128;
+
+                // Add the 'loaded' class to trigger the fade-in animation
+                qrCode.classList.add('loaded');
+
+                // Append the QR code image to the div
+                div.appendChild(qrCode);
+                input.value = "";
+            }
+        </script>
+    </body>
+
+</html>
