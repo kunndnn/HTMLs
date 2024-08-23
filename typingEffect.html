@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Typing effect</title>
+    </head>
+
+    <body>
+        <h1>I am <span class="text">Web Developer</span>
+        </h1>
+        <script>
+            const text = document.querySelector('.text');
+
+            const load = () => {
+                setTimeout(() => {
+                    text.textContent = 'Web Developer'
+                }, 0);
+
+                setTimeout(() => {
+                    text.textContent = 'JS Developer'
+                }, 2000);
+
+                setTimeout(() => {
+                    text.textContent = 'Node.js'
+                }, 4000);
+
+            }
+
+            load();
+            setInterval(load, 12000);
+
+        </script>
+    </body>
+
+</html>

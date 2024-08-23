@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    €
+
+    <body>
+        <div>
+            <form action="">
+                <pre>
+                    <label for="">For numbers only</label>
+                    <input type="text" onkeypress=" return event.charCode>=46&&event.charCode<=57">
+                    <label for="">For $ symbol only</label>
+                    <input type="text" onkeypress="return event.charCode === 8364 || event.charCode === 128">
+                    </pre>
+            </form>
+        </div>
+    </body>
+
+</html>

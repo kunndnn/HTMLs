@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Notifications </title>
+    </head>
+
+    <body>
+        <button class="notify">Notify me</button>
+        <script>
+            const NotificationBtn = document.querySelector('.notify');
+            // const requestPermission = () => {
+            //     if (!('Notification' in window)) throw new Error('Browser doesn`t support Notifications');
+            //     Notification.requestPermission().then((permission) => {
+            //         new Notification('hello, world')
+            //     })
+            // }
+
+
+            // const requestPermission = () => {
+            //     if (!('Notification' in window)) throw new Error('Browser doesn`t support Notifications');
+            //     Notification.requestPermission().then((permission) => {
+            //         let notificationOptions = {
+            //             body: 'Welcome to JS notifications!',
+            //             icon: './image.jpg'
+            //         }
+            //         new Notification('hello, world', notificationOptions)
+            //     })
+            // }
+
+            const requestPermission = () => {
+                if (window.isSecureContext) {
+                    // Page is a secure context so service workers are now available
+                    navigator.serviceWorker.register("/offline-worker.js").then(() => {
+                        // …
+                    });
+                }
+                if (!('Notification' in window)) throw new Error('Browser doesn\'t support Notifications');
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        let notificationOptions = {
+                            body: 'Welcome to JS notifications!',
+                            icon: './image.jpg',
+                            actions: [
+                                { action: 'explore', title: 'Explore JS' },
+                                { action: 'dismiss', title: 'Dismiss' }
+                            ]
+                        }
+                        navigator.serviceWorker.ready.then(registration => {
+                            registration.showNotification('Hello, World!', notificationOptions).then(notification => {
+                                notification.onclick = function (event) {
+                                    if (event.action === 'explore') {
+                                        alert('Let\'s dive into JS!');
+                                    }
+                                    notification.close();
+                                }
+                            }).catch(error => {
+                                console.error('Notification error:', error);
+                            });
+                        });
+                    }
+                });
+            }
+
+            NotificationBtn.addEventListener('click', requestPermission);
+
+        </script>
+    </body>
+
+</html>

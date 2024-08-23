@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>House on a Hill</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                text-align: center;
+                padding: 20px 0;
+            }
+
+            .container {
+                width: 600px;
+                height: 400px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            .hill {
+                width: 100%;
+                height: 100%;
+                background-color: green;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 0;
+            }
+
+            .house {
+                width: 200px;
+                height: 150px;
+                background-color: #fff;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .window {
+                width: 40px;
+                height: 40px;
+                background-color: blue;
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+
+            .door {
+                width: 50px;
+                height: 80px;
+                background-color: brown;
+                position: absolute;
+                bottom: 20px;
+                left: 75px;
+            }
+
+            .roof {
+                width: 150px;
+                height: 50px;
+                background-color: #990000;
+                position: absolute;
+                top: 0;
+                left: 25px;
+                clip-path: polygon(0 0, 100% 0, 50% 100%);
+            }
+
+            .path {
+                width: 50px;
+                height: 100px;
+                background-color: brown;
+                position: absolute;
+                bottom: 0;
+                left: calc(50% - 25px);
+                transform: skewX(-20deg);
+            }
+
+            object:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>House on a Hill</h1>
+        <div class="container">
+            <div class="hill">
+                <div class="house">
+                    <div class="window"></div>
+                    <div class="door"></div>
+                    <div class="roof"></div>
+                </div>
+                <div class="path"></div>
+            </div>
+        </div>
+        <object data="../images/house.png" type=""></object>
+    </body>
+
+</html>

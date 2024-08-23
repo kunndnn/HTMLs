@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+
+        <label for=""> Enter your name here
+            <input type="text" name="name">
+        </label>
+        <button> Click me</button>
+
+        <h2></h2>
+        <script>
+            const button = document.querySelector("button");
+            const input = document.querySelector("input");
+            const string = 'hello world';
+            const stringLength = string.length - 1;
+            const h2 = document.querySelector("h2");
+
+            button.addEventListener('click', function () {
+                if (input.value.length) { // if input has value then do this
+                    let i = 0;
+                    while (i < input.value.length) {
+                        console.log('first');
+                        i++;
+                    }
+                }
+            });
+
+        </script>
+    </body>
+
+</html>

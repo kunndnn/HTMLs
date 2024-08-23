@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Loader</title>
+
+        <style>
+            #loader {
+                display: none;
+                /* Hide the loader by default  */
+                position: fixed;
+                /* Stay in the same position  */
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                /* Make sure it covers other elements */
+                display: flex;
+                /* Use Flexbox */
+                justify-content: center;
+                /* Center horizontally */
+                align-items: center;
+                /* Center vertically */
+            }
+
+            /* spinner styles */
+            .spinner {
+                border: 8px solid rgba(0, 0, 0, 0.1);
+                border-left: 8px solid #97fae7;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                animation: spin 1.4s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <body>
+            dsfsfsffd
+            <div id="loader" style="display: none;">
+                <div class="spinner"></div>
+            </div>
+            4sdfdfdsf
+        </body>
+        <script>
+            function show() {
+                document.getElementById('loader').style.display = 'block'
+            }
+            function hide() {
+                document.getElementById('loader').style.display = 'none'
+            }
+
+        </script>
+
+    </body>
+
+</html>
