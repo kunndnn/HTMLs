@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Employee Directory</title>
+
+        <!-- DataTables CSS -->
+        <link rel="stylesheet" href="./css/datatable.css">
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            table {
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form action="">
+            <div class="filters">
+                <input type="checkbox" name="filter" value=".ai" id="filter-ai">.ai
+                <input type="checkbox" name="filter" value=".bz" id="filter-bz">.bz
+                <input type="checkbox" name="filter" value=".net" id="filter-net">.net
+            </div>
+            <div class="search">
+                <input type="text" name="search" id="searchInput" placeholder="Search...">
+                <input type="checkbox" name="start" id="start"> Start
+                <input type="checkbox" name="middle" id="middle"> Middle
+                <input type="checkbox" name="end" id="end"> End
+            </div>
+
+            <button type="button" id="searchButton">Search</button>
+            <button type="reset" id="resetButton">Reset</button>
+        </form>
+        <h2>Employee Directory</h2>
+
+        <table id="employeeTable" class="display">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        <a href="">google.com</a>
+                        <i>hi</i>
+                        <a href="">
+                            <span class="domainName">
+                                John Doe.ai
+                            </span>
+                        </a>
+                    </td>
+                    <td>Software Engineer</td>
+                    <td>IT</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>
+                        <a href="">google.com</a>
+                        <i>hi</i>
+                        <a href="">
+                            <span class="domainName">
+                                Jane Smith.ai
+                            </span>
+                        </a>
+                    </td>
+                    <td>Project Manager</td>
+                    <td>Operations</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><a href="">google.com</a>
+                        <i>hi</i>
+                        <a href="">
+                            <span class="domainName">
+                                Mike Brown.com
+                            </span>
+                        </a>
+                    </td>
+                    <td>UX Designer</td>
+                    <td>Design</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>
+                        <a href="">google.com</a>
+                        <i>hi</i>
+                        <a href="">
+                            <span class="domainName">
+                                lisa white.net
+                            </span>
+                        </a>
+                    </td>
+                    <td>Data Analyst</td>
+                    <td>Marketing</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>
+                        <a href="">google.com</a>
+                        <i>hi</i>
+                        <a href="">
+                            <span class="domainName">
+                                tomwilson.chat </span>
+                        </a>
+                    </td>
+                    <td>HR Specialist</td>
+                    <td>Human Resources</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- jQuery and DataTables JS -->
+        <script src="./js/jquery.js"></script>
+        <script src="./js/datatable.js"></script>
+
+        <script>
+            $(function () {
+                // Initialize DataTable
+                const table = $('#employeeTable').DataTable({
+                    "pageLength": 5,
+                    "lengthMenu": [5, 10, 20, 50],
+                    "searching": true,
+                    "ordering": true
+                });
+
+                // Search button click event
+                $('#searchButton').on('click', function () {
+                    // Get checked checkbox values for domain filtering
+                    const selectedFilters = $('input[name="filter"]:checked').map(function () {
+                        return $(this).val();
+                    }).get();
+
+                    // Get the search input value
+                    const searchText = $('input[name="search"]').val();
+                    const startChecked = $('input[name="start"]').prop('checked');
+                    const middleChecked = $('input[name="middle"]').prop('checked');
+                    const endChecked = $('input[name="end"]').prop('checked');
+
+                    // Build regex pattern for domain filters
+                    const domainFilterPattern = selectedFilters.length ? selectedFilters.join('|') : '';
+
+                    // Build regex pattern for search text filters
+                    let searchPattern = '';
+                    if (searchText) {
+                        if (startChecked) {
+                            searchPattern = `^${searchText}`; // Start of text
+                        }
+                        if (middleChecked) {
+                            searchPattern = searchPattern ? searchPattern + `|.*${searchText}.*` : `.*${searchText}.*`; // Middle of text
+                        }
+                        if (endChecked) {
+                            searchPattern = searchPattern ? searchPattern + `|${searchText}$` : `${searchText}$`; // End of text
+                        }
+                    }
+
+                    // Apply both filters on the Name column (column index 1)
+                    table.rows().every(function () {
+                        const row = this.node();
+                        const nameColumnText = $(row).find('.domainName').text(); // Get text from .domainName span
+
+                        let domainMatch = true;
+                        if (domainFilterPattern) {
+                            domainMatch = new RegExp(domainFilterPattern).test(nameColumnText);
+                        }
+
+                        let textMatch = true;
+                        if (searchPattern) {
+                            textMatch = new RegExp(searchPattern).test(nameColumnText);
+                        }
+
+                        // If both filters match, show the row, otherwise hide it
+                        if (domainMatch && textMatch) {
+                            $(row).show();
+                        } else {
+                            $(row).hide();
+                        }
+                    });
+                });
+
+                // Reset button click event
+                $('#resetButton').on('click', function () {
+                    // Clear all checkboxes and search input
+                    $('input[type="checkbox"], input[name="search"]').prop('checked', false).val('');
+
+                    // Show all rows after reset
+                    table.rows().every(function () {
+                        $(this.node()).show();
+                    });
+
+                    // Reinitialize the DataTable search and filter functionality
+                    table.search('').draw(); // Reset global search if applied
+                });
+            });
+
+        </script>
+
+    </body>
+
+</html>
